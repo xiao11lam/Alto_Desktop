@@ -8,7 +8,7 @@ from src.module.version import currentVersion
 
 class AboutWindow(object):
     def setupUI(self, this_window):
-        font_id = QFontDatabase.addApplicationFont(getResource("src/font/Study-Bold.otf"))
+        font_id = QFontDatabase.addApplicationFont(getResource("src/font/raisonne-demibold.otf"))
         font_family = QFontDatabase.applicationFontFamilies(font_id)
 
         # 加载 QSS

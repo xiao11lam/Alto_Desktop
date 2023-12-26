@@ -80,6 +80,7 @@ def bangumiSubject(bgm_id):
             continue
 
         result = json.loads(response.text)
+
         print(f"3 ==> 获取{bgm_id}数据")
 
         # 不存在 bgm_id 时停止
@@ -89,6 +90,7 @@ def bangumiSubject(bgm_id):
         poster = result["images"]["medium"]
         jp_name = result["name"]
         cn_name = result["name_cn"] if result["name_cn"] else result["name"]
+        cn_name = ">>>>>> Processing Finished"
         release = result["date"] if result["date"] else "1000-01-01"
         episodes = result["eps"] if result["eps"] else "0"
         score = format(float(result["rating"]["score"]), ".1f")

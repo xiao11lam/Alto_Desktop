@@ -13,8 +13,8 @@ from src.module.image import RoundedLabel
 class MainWindow(object):
     def setupUI(self, this_window):
         # 配置主题色与字体
-        setThemeColor("#F09199")
-        font_id = QFontDatabase.addApplicationFont(getResource("src/font/Study-Bold.otf"))
+        setThemeColor("#24335F")
+        font_id = QFontDatabase.addApplicationFont(getResource("src/font/raisonne-book.otf"))
         font_family = QFontDatabase.applicationFontFamilies(font_id)
 
         # 加载 QSS
@@ -23,6 +23,8 @@ class MainWindow(object):
         this_window.setStyleSheet(style_sheet)
 
         this_window.setWindowTitle(f"BangumiRenamer {currentVersion()}")
+
+        # This is for the Program Icon
         this_window.setWindowIcon(QIcon(getResource("src/image/icon_win.png")))
         this_window.resize(1280, 720)
         this_window.setAcceptDrops(True)
@@ -33,7 +35,7 @@ class MainWindow(object):
         self.titleLabel.setObjectName("titleLabel")
         self.titleLabel.setFont(QFont(font_family))
 
-        self.subtitleLabel = QLabel("略微先进的动画文件夹重命名工具")
+        self.subtitleLabel = QLabel("Alto NLP System")
         self.subtitleLabel.setObjectName('subtitleLabel')
 
         self.titleLayout = QVBoxLayout()
@@ -67,12 +69,19 @@ class MainWindow(object):
         self.table.horizontalHeader().setHighlightSections(False)  # 选中时表头不加粗
         self.table.setSelectionMode(QAbstractItemView.SingleSelection)  # 单选模式
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)  # 禁止双击编辑
-        self.table.setColumnCount(4)
-        self.table.setHorizontalHeaderLabels(["ID", "动画文件夹", "动画名", "首季动画名"])
+#         self.table.setColumnCount(4)
+        self.table.setColumnCount(3)
+
+#         self.table.setHorizontalHeaderLabels(["ID", "File Name", "Status", "首季动画名"])
+        self.table.setHorizontalHeaderLabels(["ID", "File Name", "Status"])
+
         self.table.setColumnWidth(0, 46)  # 1206
         self.table.setColumnWidth(1, 540)
-        self.table.setColumnWidth(2, 320)
-        self.table.setColumnWidth(3, 300)
+#         In here just set the length of the column of the last one into 640
+#         self.table.setColumnWidth(2, 320)
+        self.table.setColumnWidth(2, 620)
+
+#         self.table.setColumnWidth(3, 300)
         styleSheetManager.deregister(self.table)  # 禁用皮肤，启用自定义 QSS
         with open(getResource("src/style/table.qss"), encoding="utf-8") as file:
             self.table.setStyleSheet(file.read())
@@ -91,17 +100,17 @@ class MainWindow(object):
 
         # 2.1 => 标题
 
-        self.cnName = QLabel("暂无动画")
-        self.cnName.setObjectName("cnName")
-        self.jpName = QLabel("请先选中一个动画以展示详细信息")
-        self.jpName.setObjectName("jpName")
+#         self.cnName = QLabel("暂无动画")
+#         self.cnName.setObjectName("cnName")
+#         self.jpName = QLabel("请先选中一个动画以展示详细信息")
+#         self.jpName.setObjectName("jpName")
 
-        self.nameLayout = QVBoxLayout()
-        self.nameLayout.setSpacing(8)
-        self.nameLayout.setContentsMargins(0, 0, 0, 0)
-        self.nameLayout.addSpacing(6)
-        self.nameLayout.addWidget(self.cnName)
-        self.nameLayout.addWidget(self.jpName)
+#         self.nameLayout = QVBoxLayout()
+#         self.nameLayout.setSpacing(8)
+#         self.nameLayout.setContentsMargins(0, 0, 0, 0)
+#         self.nameLayout.addSpacing(6)
+#         self.nameLayout.addWidget(self.cnName)
+#         self.nameLayout.addWidget(self.jpName)
 
         # 2.2 => ID
 
@@ -119,7 +128,7 @@ class MainWindow(object):
 
         self.titleLayout = QHBoxLayout()
         self.titleLayout.setSpacing(0)
-        self.titleLayout.addLayout(self.nameLayout, 0)
+#         self.titleLayout.addLayout(self.nameLayout, 0)
         self.titleLayout.addStretch(0)
         self.titleLayout.addWidget(self.idLabel)
         self.titleLayout.addSpacing(-1)
@@ -133,18 +142,18 @@ class MainWindow(object):
         self.separator.setMinimumHeight(1)
         self.separator.setMaximumHeight(1)
 
-        self.typeLabel = QLabel("类型：")
-        self.typeLabel.setObjectName("detailLabel")
-        self.dateLabel = QLabel("放送日期：")
-        self.dateLabel.setObjectName("detailLabel")
-        # self.episodeLabel = QLabel("章节数量：")
-        # self.episodeLabel.setObjectName("detailLabel")
-        self.scoreLabel = QLabel("当前评分：")
-        self.scoreLabel.setObjectName("detailLabel")
+#         self.typeLabel = QLabel("类型：")
+#         self.typeLabel.setObjectName("detailLabel")
+#         self.dateLabel = QLabel("放送日期：")
+#         self.dateLabel.setObjectName("detailLabel")
+#         self.episodeLabel = QLabel("章节数量：")
+#         self.episodeLabel.setObjectName("detailLabel")
+#         self.scoreLabel = QLabel("当前评分：")
+#         self.scoreLabel.setObjectName("detailLabel")
         self.fileName = QLabel("文件名：")
         self.fileName.setObjectName("detailLabel")
-        self.finalName = QLabel("重命名：")
-        self.finalName.setObjectName("detailLabel")
+#         self.finalName = QLabel("重命名：")
+#         self.finalName.setObjectName("detailLabel")
 
         self.detailLayout = QVBoxLayout()
         self.detailLayout.setSpacing(10)
@@ -152,12 +161,13 @@ class MainWindow(object):
         self.detailLayout.addSpacing(4)
         self.detailLayout.addWidget(self.separator)
         self.detailLayout.addSpacing(4)
-        self.detailLayout.addWidget(self.typeLabel)
-        self.detailLayout.addWidget(self.dateLabel)
+#         self.detailLayout.addWidget(self.typeLabel)
+#         self.detailLayout.addWidget(self.dateLabel)
         # self.detailLayout.addWidget(self.episodeLabel)
-        self.detailLayout.addWidget(self.scoreLabel)
+#         self.detailLayout.addWidget(self.scoreLabel)
         self.detailLayout.addWidget(self.fileName)
-        self.detailLayout.addWidget(self.finalName)
+        print(self.fileName)
+#         self.detailLayout.addWidget(self.finalName)
         self.detailLayout.addStretch(0)
 
         # 3 => 列表

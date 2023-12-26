@@ -58,17 +58,17 @@ class MyMainWindow(QMainWindow, MainWindow):
         self.table.clearContents()
         self.table.setRowCount(0)
         self.searchList.clear()
-        self.searchList.addItem(QListWidgetItem("暂无搜索结果"))
+#         self.searchList.addItem(QListWidgetItem("暂无搜索结果"))
 
-        self.cnName.setText("暂无动画")
-        self.jpName.setText("请先选中一个动画以展示详细信息")
-        self.typeLabel.setText("类型：")
-        self.dateLabel.setText("放送日期：")
-        self.scoreLabel.setText("当前评分：")
-        self.fileName.setText("文件名：")
-        self.finalName.setText("重命名结果：")
-        self.image.updateImage(getResource("src/image/empty.png"))
-        self.idLabel.setText("")
+#         self.cnName.setText("暂无动画")
+#         self.jpName.setText("请先选中一个动画以展示详细信息")
+#         self.typeLabel.setText("类型：")
+#         self.dateLabel.setText("放送日期：")
+#         self.scoreLabel.setText("当前评分：")
+        self.fileName.setText("File Name:")
+#         self.finalName.setText("重命名结果：")
+#         self.image.updateImage(getResource("src/image/empty.png"))
+#         self.idLabel.setText("")
 
     def openAbout(self):
         about = MyAboutWindow()
@@ -91,6 +91,7 @@ class MyMainWindow(QMainWindow, MainWindow):
             return
         else:
             id_now = self.anime_list[row]["bgm_id"]
+            print(self.anime_list[row])
             id_want = self.idLabel.text()
 
         if not id_want or not id_want.isdigit():
@@ -98,6 +99,7 @@ class MyMainWindow(QMainWindow, MainWindow):
             return
 
         if str(id_now) == str(id_want):
+            print(id_now)
             self.showInfo("warning", "未修改", "新的ID与当前ID一致")
             return
 
@@ -165,6 +167,7 @@ class MyMainWindow(QMainWindow, MainWindow):
 
             if "cn_name" in anime:
                 self.table.setItem(list_id, 2, QTableWidgetItem(anime["cn_name"]))
+#                 self.table.setItem(list_id, 2, QTableWidgetItem("This is the output text"))
 
             if "init_name" in anime:
                 self.table.setItem(list_id, 3, QTableWidgetItem(anime["init_name"]))
@@ -180,7 +183,7 @@ class MyMainWindow(QMainWindow, MainWindow):
         # 标出分析中
         anime_len = len(self.anime_list)
         for i in range(anime_len):
-            self.table.setItem(i, 2, QTableWidgetItem("==> 分析中"))
+            self.table.setItem(i, 2, QTableWidgetItem("==> Processing"))
 
         # 显示进度条
         self.spinner.setVisible(True)
@@ -214,10 +217,9 @@ class MyMainWindow(QMainWindow, MainWindow):
 
         # 获取并写入分析信息
         getApiInfo(anime)
-
         # 使用 init_name 判断是否分析成功
         if "init_name" not in anime:
-            self.table.setItem(anime["list_id"], 2, QTableWidgetItem("==> 动画获取失败（逃"))
+            self.table.setItem(anime["list_id"], 2, QTableWidgetItem("==> The Processing Failed"))
             return
 
         # 下载图片
@@ -229,9 +231,10 @@ class MyMainWindow(QMainWindow, MainWindow):
         # 重新排序 anime_list 列表，避免串行
         self.anime_list = sorted(self.anime_list, key=lambda x: x["list_id"])
 
-        # 在列表中显示
+        # In here it returned all the output result
         self.showInTable()
 
+    # This is the section that if you selected the file folder, so you can get this
     def selectTable(self):
         row = self.RowInTable()
 
@@ -239,73 +242,76 @@ class MyMainWindow(QMainWindow, MainWindow):
         if row is None:
             return
 
-        if "cn_name" in self.anime_list[row]:
-            cn_name = self.anime_list[row]["cn_name"]
-            self.cnName.setText(cn_name)
-        else:
-            self.cnName.setText("暂无动画")
+#         if "cn_name" in self.anime_list[row]:
+#             cn_name = self.anime_list[row]["cn_name"]
+#             self.cnName.setText(cn_name)
+#         else:
+#             self.cnName.setText("暂无动画")
+#
+#         if "jp_name" in self.anime_list[row]:
+#             jp_name = self.anime_list[row]["jp_name"]
+#             self.jpName.setText(jp_name)
+#         else:
+#             self.jpName.setText("请先选中一个动画以展示详细信息")
 
-        if "jp_name" in self.anime_list[row]:
-            jp_name = self.anime_list[row]["jp_name"]
-            self.jpName.setText(jp_name)
-        else:
-            self.jpName.setText("请先选中一个动画以展示详细信息")
+#         if "types" in self.anime_list[row] and "typecode" in self.anime_list[row]:
+#             types = self.anime_list[row]["types"]
+#             typecode = self.anime_list[row]["typecode"]
+#             self.typeLabel.setText(f"类型：{types} ({typecode})")
+#         else:
+#             self.typeLabel.setText("类型：")
 
-        if "types" in self.anime_list[row] and "typecode" in self.anime_list[row]:
-            types = self.anime_list[row]["types"]
-            typecode = self.anime_list[row]["typecode"]
-            self.typeLabel.setText(f"类型：{types} ({typecode})")
-        else:
-            self.typeLabel.setText("类型：")
+#         if "release" in self.anime_list[row]:
+#             release = self.anime_list[row]["release"]
+#             release = arrow.get(release).format("YYYY年M月D日")
+#             self.dateLabel.setText(f"放送日期：{release}")
+#         else:
+#             self.dateLabel.setText("放送日期：")
 
-        if "release" in self.anime_list[row]:
-            release = self.anime_list[row]["release"]
-            release = arrow.get(release).format("YYYY年M月D日")
-            self.dateLabel.setText(f"放送日期：{release}")
-        else:
-            self.dateLabel.setText("放送日期：")
+#         if "score" in self.anime_list[row]:
+#             score = str(self.anime_list[row]["score"])
+#             self.scoreLabel.setText(f"当前评分：{score}")
+#         else:
+#             self.scoreLabel.setText("当前评分：")
 
-        if "score" in self.anime_list[row]:
-            score = str(self.anime_list[row]["score"])
-            self.scoreLabel.setText(f"当前评分：{score}")
-        else:
-            self.scoreLabel.setText("当前评分：")
-
+        # In here it controls the the "Folder Name section"
         if "file_name" in self.anime_list[row]:
             file_name = self.anime_list[row]["file_name"]
-            self.fileName.setText(f"文件名：{file_name}")
+            self.fileName.setText(f"File Name:{file_name}")
         else:
-            self.fileName.setText("文件名：")
+            self.fileName.setText("File Name:")
 
-        if "final_name" in self.anime_list[row]:
-            final_name = self.anime_list[row]["final_name"].replace("/", " / ")
-            self.finalName.setText(f"重命名：{final_name}")
-        else:
-            self.finalName.setText("重命名：")
+        ###################################################
 
-        if "poster" in self.anime_list[row]:
-            poster_name = os.path.basename(self.anime_list[row]["poster"])
-            poster_path = os.path.join(self.poster_folder, poster_name)
-            self.image.updateImage(poster_path)
-        else:
-            self.image.updateImage(getResource("src/image/empty.png"))
+#         if "final_name" in self.anime_list[row]:
+#             final_name = self.anime_list[row]["final_name"].replace("/", " / ")
+#             self.fileName.setText(f"文件名：{file_name}")
+#         else:
+#             self.finalName.setText("重命名：")
 
-        if "bgm_id" in self.anime_list[row]:
-            bgm_id = str(self.anime_list[row]["bgm_id"])
-            self.idLabel.setText(bgm_id)
-        else:
-            self.idLabel.setText("")
-
-        if "result" in self.anime_list[row]:
-            self.searchList.clear()
-            for this in self.anime_list[row]["result"]:
-                release = arrow.get(this['release']).format("YY-MM-DD")
-                cn_name = this['cn_name']
-                item = f"[{release}] {cn_name}"
-                self.searchList.addItem(QListWidgetItem(item))
-        else:
-            self.searchList.clear()
-            self.searchList.addItem(QListWidgetItem("暂无搜索结果"))
+#         if "poster" in self.anime_list[row]:
+#             poster_name = os.path.basename(self.anime_list[row]["poster"])
+#             poster_path = os.path.join(self.poster_folder, poster_name)
+#             self.image.updateImage(poster_path)
+#         else:
+#             self.image.updateImage(getResource("src/image/empty.png"))
+#
+#         if "bgm_id" in self.anime_list[row]:
+#             bgm_id = str(self.anime_list[row]["bgm_id"])
+#             self.idLabel.setText(bgm_id)
+#         else:
+#             self.idLabel.setText("")
+#
+#         if "result" in self.anime_list[row]:
+#             self.searchList.clear()
+#             for this in self.anime_list[row]["result"]:
+#                 release = arrow.get(this['release']).format("YY-MM-DD")
+#                 cn_name = this['cn_name']
+#                 item = f"[{release}] {cn_name}"
+#                 self.searchList.addItem(QListWidgetItem(item))
+#         else:
+#             self.searchList.clear()
+#             self.searchList.addItem(QListWidgetItem("暂无搜索结果"))
 
     def showMenu(self, pos):
         # force_bgm_id = Action(FluentIcon.SYNC, "强制根据 Bangumi ID 分析")
