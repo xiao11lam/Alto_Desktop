@@ -139,13 +139,23 @@ class MyMainWindow(QMainWindow, MainWindow):
             self.initList()
             self.showInfo("success", "", "列表已清空")
 
+    # here it drags all the files into the table
     def dragEnterEvent(self, event):
         event.acceptProposedAction()
 
+    # the Implementation here is to has a single file can be dragged into here as well
     def dropEvent(self, event):
         # 获取并格式化本地路径
+        # event: <PySide6.QtGui.QDropEvent(dropAction=CopyAction, proposedAction=CopyAction, possibleActions=CopyAction|MoveAction|LinkAction, posF=641,160, formats=QList("application/x-qt-windows-mime;value=\"Shell IDList Array\"", "application/x-qt-windows-mime;value=\"UsingDefaultDragImage\"", "application/x-qt-windows-mime;value=\"DragImageBits\"", "application/x-qt-windows-mime;value=\"DragContext\"", "application/x-qt-windows-mime;value=\"DragSourceHelperFlags\"", "application/x-qt-windows-mime;value=\"InShellDragLoop\"", "text/uri-list", "application/x-qt-windows-mime;value=\"FileName\"", "application/x-qt-windows-mime;value=\"FileNameW\""), NoButton>
         raw_list = event.mimeData().urls()
         result = initList(self.list_id, self.anime_list, raw_list)
+        # raw_list: [PySide6.QtCore.QUrl('file:///C:/Users/xiaoe/Documents/AAAAAA'), PySide6.QtCore.QUrl('file:///C:/Users/xiaoe/Documents/Adobe')]
+        # raw_list: (2, [{'list_id': 0, 'file_name': 'AAAAAA', 'file_path': 'C:\\Users\\xiaoe\\Documents\\AAAAAA'}, {'list_id': 1, 'file_name': 'Adobe', 'file_path': 'C:\\Users\\xiaoe\\Documents\\Adobe'}])
+
+        mime_data = event.mimeData()
+
+        # if the file is a folder then it can has Urls which is True
+
 
         self.list_id = result[0]  # 此处的 list_id 已经比实际加了 1
         self.anime_list = result[1]
@@ -154,8 +164,9 @@ class MyMainWindow(QMainWindow, MainWindow):
 
     def showInTable(self):
         self.table.setRowCount(len(self.anime_list))
-
+        # here is the anime_list info: [{'list_id': 0, 'file_name': 'AAAAAA', 'file_path': 'C:\\Users\\xiaoe\\Documents\\AAAAAA'}, {'list_id': 1, 'file_name': 'Adobe', 'file_path': 'C:\\Users\\xiaoe\\Documents\\Adobe'}]
         for anime in self.anime_list:
+            # here is the anime info: {'list_id': 0, 'file_name': 'Papers', 'file_path': 'C:\\Users\\xiaoe\\Desktop\\Papers-20231213T224535Z-001\\Papers'}
             list_id = anime["list_id"]
             anime_id = str(list_id + 1)
 
