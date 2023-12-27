@@ -186,19 +186,31 @@ def getApiInfo(anime):
 #     return search_list
 
 
-def downloadPoster(anime):
-    poster_url = anime["poster"]
-    poster_name = os.path.basename(poster_url)
+def downloadPoster(df):
+#     poster_url = anime["poster"]
+#     poster_name = os.path.basename(poster_url)
     poster_folder = posterFolder()
-    poster_path = os.path.join(poster_folder, poster_name)
+#     poster_path = os.path.join(poster_folder, poster_name)
+    poster_path = poster_folder
+    # poster_url: https://lain.bgm.tv/r/800/pic/cover/l/82/4d/412353_I9liL.jpg
+    # poster_name: 412353_I9liL.jpg
+    # poster_folder: C:\Users\xiaoe\Desktop\Alto_Health_Results
+    # poster_path: C:\Users\xiaoe\Desktop\Alto_Health_Results\412353_I9liL.jpg
 
-    # 如果存在这张海报则不下载
-    if os.path.exists(poster_path):
-        return
+    # Define the full path for the Excel file
+    excel_filename = os.path.join(poster_folder, "triage_results.xlsx")
 
-    response = requests.get(poster_url)
-    with open(poster_path, "wb") as file:
-        file.write(response.content)
+    # Export to Excel
+    df.to_excel(excel_filename, index=False)
+    print(f"Data exported to {excel_filename}")
+
+#     # 如果存在这张海报则不下载
+#     if os.path.exists(poster_path):
+#         return
+
+#     response = requests.get(poster_url)
+#     with open(poster_path, "wb") as file:
+#         file.write(response.content)
 
 
 def getFinalName(anime):

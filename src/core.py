@@ -235,7 +235,7 @@ class MyMainWindow(QMainWindow, MainWindow):
             return
 
         # 下载图片
-        downloadPoster(anime)
+#         downloadPoster(anime)
 
         # 获取并写入重命名
         getFinalName(anime)
@@ -471,9 +471,12 @@ class MyMainWindow(QMainWindow, MainWindow):
 
 #             print(final_name_1)
 
+
+
             # Create a DataFrame
             df = pd.DataFrame([final_name_1], columns=['Data'])
 
+            downloadPoster(df)
             # Export to Excel
 #             excel_filename = "triage_results.xlsx"
 #             df.to_excel(excel_filename, index=False)

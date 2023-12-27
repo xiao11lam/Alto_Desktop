@@ -7,7 +7,6 @@ import configparser
 # 配置文件路径
 def configPath():
     if platform.system() == "Windows":
-        config_path = os.environ["APPDATA"]
     elif platform.system() == "Darwin":
         config_path = os.path.expanduser("~/Library/Application Support")
     elif platform.system() == "Linux":

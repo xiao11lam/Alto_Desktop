@@ -201,16 +201,16 @@ class MainWindow(object):
         self.showLogs = PillPushButton("显示日志", self)
         self.showLogs.setFixedWidth(100)
 
-        self.clearButton = PushButton("清空列表", self)
+        self.clearButton = PushButton("Empty", self)
         self.clearButton.setFixedWidth(120)
 
         self.buttonSeparator = QFrame()
         self.buttonSeparator.setObjectName("buttonSeparator")
         self.buttonSeparator.setFixedSize(1, 30)
 
-        self.analysisButton = PushButton("开始分析", self)
+        self.analysisButton = PushButton("Process", self)
         self.analysisButton.setFixedWidth(120)
-        self.renameButton = PrimaryPushButton("重命名", self)
+        self.renameButton = PrimaryPushButton("Export", self)
         self.renameButton.setFixedWidth(120)
 
         self.buttonLayout = QHBoxLayout()

@@ -118,6 +118,8 @@ class SettingWindow(object):
         # 图片缓存
 
         self.posterFolderTitle = QLabel("动画海报")
+#         self.posterFolderInfo = QLabel(posterFolder())
+#       Here is the posterFolder() is the path
         self.posterFolderInfo = QLabel(posterFolder())
 
         self.posterFolderButton = PushButton("打开", self, FluentIcon.FOLDER)
