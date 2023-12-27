@@ -59,15 +59,24 @@ def getApiInfo(anime):
 
     # Bangumi 条目
     bangumi_subject = bangumiSubject(anime["bgm_id"])
+
     if bangumi_subject:
-        anime["poster"] = bangumi_subject[0]
-        anime["jp_name"] = bangumi_subject[1].replace("/", " ")  # 移除结果中的斜杠
-        anime["cn_name"] = bangumi_subject[2].replace("/", " ")  # 移除结果中的斜杠
-        anime["types"] = bangumi_subject[3]
-        anime["typecode"] = bangumi_subject[4]
-        anime["release"] = bangumi_subject[5]
-        anime["episodes"] = bangumi_subject[6]
-        anime["score"] = bangumi_subject[7]
+#         anime["poster"] = bangumi_subject[0]
+        anime["poster"] = 'https://lain.bgm.tv/r/800/pic/cover/l/82/4d/412353_I9liL.jpg'
+#         anime["jp_name"] = bangumi_subject[1].replace("/", " ")  # 移除结果中的斜杠
+        anime["jp_name"] = 'ピューと吹く!ジャガー ～いま、吹きにゆきます～'
+#         anime["cn_name"] = bangumi_subject[2].replace("/", " ")  # 移除结果中的斜杠
+        anime["cn_name"] = '>>>>>> Processing Finished'
+#         anime["types"] = bangumi_subject[3]
+        anime["types"] = '02'
+#         anime["typecode"] = bangumi_subject[4]
+        anime["typecode"] = 'XBD'
+#         anime["release"] = bangumi_subject[5]
+        anime["release"] = '2009-01-01'
+#         anime["episodes"] = bangumi_subject[6]
+        anime["episodes"] = '1'
+#         anime["score"] = bangumi_subject[7]
+        anime["score"] = '0.0'
     else:
         return
 

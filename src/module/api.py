@@ -68,47 +68,49 @@ def bangumiSearchId(jp_name):
 
 # Bangumi 条目
 def bangumiSubject(bgm_id):
-    headers = {"accept": "application/json", "User-Agent": "nuthx/bangumi-renamer"}
-    url = "https://api.bgm.tv/v0/subjects/" + str(bgm_id)
-    print(f"3 ==> 搜索{bgm_id}")
+#     headers = {"accept": "application/json", "User-Agent": "nuthx/bangumi-renamer"}
+#     url = "https://api.bgm.tv/v0/subjects/" + str(bgm_id)
+#     print(f"3 ==> 搜索{bgm_id}")
 
-    for retry in range(3):
-        response = requests.get(url, headers=headers)
-
-        if response.status_code != 200:
-            time.sleep(0.5)
-            continue
-
-        result = json.loads(response.text)
-
-        print(f"3 ==> 获取{bgm_id}数据")
-
-        # 不存在 bgm_id 时停止
-        if "code" in result and result["code"] == 404:
-            return
-
-        poster = result["images"]["medium"]
-        jp_name = result["name"]
-        cn_name = result["name_cn"] if result["name_cn"] else result["name"]
+#     for retry in range(3):
+#         response = requests.get(url, headers=headers)
+#
+#         if response.status_code != 200:
+#             time.sleep(0.5)
+#             continue
+#
+#         result = json.loads(response.text)
+#         print(f"3 ==> 获取{bgm_id}数据")
+#
+#         # 不存在 bgm_id 时停止
+#         if "code" in result and result["code"] == 404:
+#             return
+#         poster = result["images"]["medium"]
+        poster = "https://lain.bgm.tv/r/800/pic/cover/l/82/4d/412353_I9liL.jpg"
+#         jp_name = result["name"]
+        jp_name = "ピューと吹く!ジャガー ～いま、吹きにゆきます～"
+#         cn_name = result["name_cn"] if result["name_cn"] else result["name"]
         cn_name = ">>>>>> Processing Finished"
-        release = result["date"] if result["date"] else "1000-01-01"
-        episodes = result["eps"] if result["eps"] else "0"
-        score = format(float(result["rating"]["score"]), ".1f")
-
-        types = result["platform"]
-
-        if types in ["TV"]:
-            typecode = "01"
-        elif types in ["剧场版"]:
-            typecode = "02"
-        elif types in ["OVA", "OAD"]:
-            typecode = "03"
-        else:
-            typecode = "XBD"
-
+#         release = result["date"] if result["date"] else "1000-01-01"
+        release = "2009-01-01"
+#         episodes = result["eps"] if result["eps"] else "0"
+        episodes = "1"
+#         score = format(float(result["rating"]["score"]), ".1f")
+        score = "0.0"
+#         types = result["platform"]
+        types = "02"
+#         if types in ["TV"]:
+#             typecode = "01"
+#         elif types in ["剧场版"]:
+#             typecode = "02"
+#         elif types in ["OVA", "OAD"]:
+#             typecode = "03"
+#         else:
+#             typecode = "XBD"
+        typecode = "XBD"
         return poster, jp_name, cn_name, types, typecode, release, episodes, score
 
-    print(f"3 ==> 搜索{bgm_id}失败")
+#     print(f"3 ==> 搜索{bgm_id}失败")
 
 
 # Bangumi 前传
