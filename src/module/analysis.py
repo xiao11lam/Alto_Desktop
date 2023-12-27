@@ -24,31 +24,33 @@ def getRomajiName(file_name):
         return anime_title
 
 
-def isPureEnglish(name):
-    name = name.replace(".", " ")
-    try:
-        for word in name.split():
-            if word.lower() not in words.words():
-                return False
-    except Exception as e:
-        # print(f"nltk异常，即将重试 ({e})")
-        time.sleep(0.2)
-        return isPureEnglish(name)
-    return True
+# def isPureEnglish(name):
+#     name = name.replace(".", " ")
+#     try:
+#         for word in name.split():
+#             if word.lower() not in words.words():
+#                 return False
+#     except Exception as e:
+#         # print(f"nltk异常，即将重试 ({e})")
+#         time.sleep(0.2)
+#         return isPureEnglish(name)
+#     return True
 
 
 def getApiInfo(anime):
-    romaji_name = anime["romaji_name"]
+#     romaji_name = anime["romaji_name"]
 
     # Anilist
-    if isPureEnglish(romaji_name):
-        anime["jp_name_anilist"] = romaji_name
-    else:
-        jp_name_anilist = anilistSearch(romaji_name)
-        if jp_name_anilist:
-            anime["jp_name_anilist"] = jp_name_anilist
-        else:
-            return
+#     if isPureEnglish(romaji_name):
+#         anime["jp_name_anilist"] = romaji_name
+#     else:
+#         jp_name_anilist = anilistSearch(romaji_name)
+#         if jp_name_anilist:
+#             anime["jp_name_anilist"] = jp_name_anilist
+#         else:
+#             return
+
+    anime["jp_name_anilist"] = 'ナガハマラジャ'
 
     # Bangumi ID
 #     bangumi_search_id = bangumiSearchId(anime["jp_name_anilist"])
@@ -101,59 +103,61 @@ def getApiInfo(anime):
     anime["init_name"] = prev_name.replace("/", " ")  # 移除结果中的斜杠
 
     # Bangumi 搜索
-    search_result = bangumiSearch(anime["init_name"])
-    search_clean = removeTrash(anime["init_name"], search_result)
+#     search_result = bangumiSearch(anime["init_name"])
+#     search_result = "[{'bgm_id': 114808, 'cn_name': '搞怪吹笛手', 'release': '2007-11-19'}, {'bgm_id': 412353, 'cn_name': '搞怪吹笛手：立刻开吹', 'release': '2009-01-01'}]"
+#     search_clean = removeTrash(anime["init_name"], search_result)
+    search_clean = "[{'bgm_id': 114808, 'cn_name': '搞怪吹笛手', 'release': '2007-11-19'}, {'bgm_id': 412353, 'cn_name': '搞怪吹笛手：立刻开吹', 'release': '2009-01-01'}]"
     if search_clean:
         anime["result"] = search_clean
     else:
         return
 
 
-def removeTrash(init_name, search_list):
-    if not search_list:
-        return
-
-    # 获取列表
-    init_name = init_name.lower()
-    name_list = []
-    for item in search_list:
-        anime = item["cn_name"].lower()
-        name_list.append(anime)
-
-    result_yes1 = []
-    result_no1 = []
-    result_yes2 = []
-    result_no2 = []
-
-    # jieba 余弦相似度
-    for name in name_list:
-        t1 = set(jieba.cut(init_name))
-        t2 = set(jieba.cut(name))
-        result1 = len(t1 & t2) / len(t1 | t2)
-
-        if result1 >= 0.15:
-            result_yes1.append(name)
-        else:
-            result_no1.append(name)
-
-    # fuzzywuzzy 模糊匹配
-    for name in name_list:
-        ratio = fuzz.partial_ratio(init_name, name)
-        if ratio > 90:
-            result_yes2.append(name)
-        else:
-            result_no2.append(name)
-
-    # print(f"yes1:{result_yes1}")
-    # print(f"no1:{result_no1}")
-    # print(f"yes2:{result_yes2}")
-    # print(f"no2:{result_no2}")
-
-    # 在 search_list 中删除排除的动画
-    result = set(result_yes1 + result_yes2)  # 合并匹配的结果
-    result_remove = set(result_no1 + result_no2)  # 合并排除的结果
-    search_list = [item for item in search_list if item["cn_name"].lower() in result]
-    return search_list
+# def removeTrash(init_name, search_list):
+#     if not search_list:
+#         return
+#
+#     # 获取列表
+#     init_name = init_name.lower()
+#     name_list = []
+#     for item in search_list:
+#         anime = item["cn_name"].lower()
+#         name_list.append(anime)
+#
+#     result_yes1 = []
+#     result_no1 = []
+#     result_yes2 = []
+#     result_no2 = []
+#
+#     # jieba 余弦相似度
+#     for name in name_list:
+#         t1 = set(jieba.cut(init_name))
+#         t2 = set(jieba.cut(name))
+#         result1 = len(t1 & t2) / len(t1 | t2)
+#
+#         if result1 >= 0.15:
+#             result_yes1.append(name)
+#         else:
+#             result_no1.append(name)
+#
+#     # fuzzywuzzy 模糊匹配
+#     for name in name_list:
+#         ratio = fuzz.partial_ratio(init_name, name)
+#         if ratio > 90:
+#             result_yes2.append(name)
+#         else:
+#             result_no2.append(name)
+#
+#     # print(f"yes1:{result_yes1}")
+#     # print(f"no1:{result_no1}")
+#     # print(f"yes2:{result_yes2}")
+#     # print(f"no2:{result_no2}")
+#
+#     # 在 search_list 中删除排除的动画
+#     result = set(result_yes1 + result_yes2)  # 合并匹配的结果
+#     result_remove = set(result_no1 + result_no2)  # 合并排除的结果
+#     search_list = [item for item in search_list if item["cn_name"].lower() in result]
+#     return search_list
 
 
 def downloadPoster(anime):

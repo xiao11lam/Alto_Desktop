@@ -17,7 +17,7 @@ from src.gui.setting import SettingWindow
 
 from src.function import initList, addTimes, openFolder
 from src.module.analysis import getRomajiName, getApiInfo, downloadPoster, getFinalName
-from src.module.api import bangumiSubject
+# from src.module.api import bangumiSubject
 from src.module.config import configFile, posterFolder, formatCheck, readConfig
 from src.module.version import newVersion
 from src.module.resource import getResource
@@ -403,23 +403,23 @@ class MyMainWindow(QMainWindow, MainWindow):
                 instead_this_anime.triggered.connect(lambda: self.correctThisAnime(table_row, bgm_id))
                 view_on_bangumi.triggered.connect(lambda: self.openBgmUrl(table_row))
 
-    def correctThisAnime(self, row, bgm_id):
-        result = bangumiSubject(bgm_id)
-
-        self.anime_list[row]["bgm_id"] = bgm_id
-        self.anime_list[row]["poster"] = result[0]
-        self.anime_list[row]["jp_name"] = result[1].replace("/", " ")  # 移除结果中的斜杠
-        self.anime_list[row]["cn_name"] = result[2].replace("/", " ")  # 移除结果中的斜杠
-        self.anime_list[row]["types"] = result[3]
-        self.anime_list[row]["typecode"] = result[4]
-        self.anime_list[row]["release"] = result[5]
-        self.anime_list[row]["episodes"] = result[6]
-        self.anime_list[row]["score"] = result[7]
-
-        downloadPoster(self.anime_list[row])
-        getFinalName(self.anime_list[row])
-        self.showInTable()
-        self.selectTable()
+#     def correctThisAnime(self, row, bgm_id):
+#         result = bangumiSubject(bgm_id)
+#
+#         self.anime_list[row]["bgm_id"] = bgm_id
+#         self.anime_list[row]["poster"] = result[0]
+#         self.anime_list[row]["jp_name"] = result[1].replace("/", " ")  # 移除结果中的斜杠
+#         self.anime_list[row]["cn_name"] = result[2].replace("/", " ")  # 移除结果中的斜杠
+#         self.anime_list[row]["types"] = result[3]
+#         self.anime_list[row]["typecode"] = result[4]
+#         self.anime_list[row]["release"] = result[5]
+#         self.anime_list[row]["episodes"] = result[6]
+#         self.anime_list[row]["score"] = result[7]
+#
+#         downloadPoster(self.anime_list[row])
+#         getFinalName(self.anime_list[row])
+#         self.showInTable()
+#         self.selectTable()
 
     def startRename(self):
         # anime_list 是否有数据
