@@ -39,8 +39,7 @@ def getRomajiName(file_name):
 
 
 ##################################################Real Output##############################################
-def extract_text_from_pdfs(anime):
-    folder_path = anime
+def extract_text_from_pdfs(folder_path):
     if not folder_path or not os.path.exists(folder_path):
         print("Invalid or non-existent folder path.")
         return
@@ -48,12 +47,15 @@ def extract_text_from_pdfs(anime):
     all_files = os.listdir(folder_path)
     pdf_files = [file for file in all_files if file.endswith('.pdf')]
 
+    extracted_text = ""
     for pdf_file in pdf_files:
         pdf_path = os.path.join(folder_path, pdf_file)
         with fitz.open(pdf_path) as doc:
-            print(f"Text from {pdf_file}:")
+#             print(f"Text from {pdf_file}:")
             for page in doc:
-                print(page.get_text())
+                extracted_text += page.get_text()
+
+    return extracted_text
 
 
 def getApiInfo(anime):
@@ -114,9 +116,8 @@ def getApiInfo(anime):
     prev_id = '114808'
 #     prev_name = bangumi_previous[1]
 
-    extract_text_from_pdfs(anime["file_path"])
 
-    prev_name = 'Output Folder Location'
+    prev_name = extract_text_from_pdfs(anime["file_path"])
 
 #     while bgm_id != prev_id:  # 如果 ID 不同，说明有前传
 #         bgm_id = prev_id

@@ -6,6 +6,7 @@ import shutil
 import arrow
 import nltk
 import requests
+import pandas as pd
 from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QDialog, QListWidgetItem
 from PySide6.QtCore import Qt, QUrl, Signal, QPoint
 from PySide6.QtGui import QDesktopServices, QTextCursor
@@ -467,6 +468,17 @@ class MyMainWindow(QMainWindow, MainWindow):
             else:
                 final_name_1 = ""
                 final_name_2 = final_name
+
+#             print(final_name_1)
+
+            # Create a DataFrame
+            df = pd.DataFrame([final_name_1], columns=['Data'])
+
+            # Export to Excel
+#             excel_filename = "triage_results.xlsx"
+#             df.to_excel(excel_filename, index=False)
+#
+#             print(f"Data exported to {excel_filename}")
 
 
 #             # 更名当前文件夹
