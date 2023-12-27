@@ -37,6 +37,7 @@ def getRomajiName(file_name):
 #     return True
 
 
+##################################################Real Output##############################################
 def getApiInfo(anime):
 #     romaji_name = anime["romaji_name"]
 
@@ -51,6 +52,10 @@ def getApiInfo(anime):
 #             return
 
     anime["jp_name_anilist"] = 'ナガハマラジャ'
+    print(anime["file_path"])
+
+
+
 
     # Bangumi ID
 #     bangumi_search_id = bangumiSearchId(anime["jp_name_anilist"])
@@ -87,11 +92,11 @@ def getApiInfo(anime):
     # Bangumi 前传
     bgm_id = anime["bgm_id"]
 #     bangumi_previous = bangumiPrevious(bgm_id, anime["cn_name"])
-    bangumi_previous = "('114808', '搞怪吹笛手')"
+#     bangumi_previous = "('114808', 'Output Folder')"
 #     prev_id = bangumi_previous[0]
     prev_id = '114808'
 #     prev_name = bangumi_previous[1]
-    prev_name = '搞怪吹笛手'
+    prev_name = 'Output Folder Location'
 
 #     while bgm_id != prev_id:  # 如果 ID 不同，说明有前传
 #         bgm_id = prev_id

@@ -421,6 +421,7 @@ class MyMainWindow(QMainWindow, MainWindow):
 #         self.showInTable()
 #         self.selectTable()
 
+########################################################################################################################
     def startRename(self):
         # anime_list 是否有数据
         if not self.anime_list:
@@ -451,6 +452,8 @@ class MyMainWindow(QMainWindow, MainWindow):
             return
 
         # 开始命名
+
+
         for order in rename_order_list:
             this_anime = self.anime_list[order]
 
@@ -460,28 +463,34 @@ class MyMainWindow(QMainWindow, MainWindow):
                 final_name_list = final_name.split('/')
                 final_name_1 = final_name_list[0]
                 final_name_2 = final_name_list[1]
+                ################################## Here is the modfied name which is the Output Folder ###############
+                # final_name_1: Output Folder
+                print(final_name_1)
             else:
                 final_name_1 = ""
                 final_name_2 = final_name
+
 
             # 更名当前文件夹
             file_path = this_anime["file_path"]
             file_dir = os.path.dirname(file_path)
             final_path_2 = os.path.join(file_dir, final_name_2)
-            os.rename(file_path, final_path_2)
 
-            # 是否有父文件夹
-            if final_name_1 == "":
-                return
 
-            # 创建父文件夹
-            final_path_1 = os.path.join(file_dir, final_name_1)
-            if not os.path.exists(final_path_1):
-                os.makedirs(final_path_1)
-
-            # 移动至父文件夹
-            final_path_1 = os.path.join(file_dir, final_name_1)
-            shutil.move(final_path_2, final_path_1)
+#             os.rename(file_path, final_path_2)
+#
+#             # 是否有父文件夹
+#             if final_name_1 == "":
+#                 return
+#
+#             # 创建父文件夹
+#             final_path_1 = os.path.join(file_dir, final_name_1)
+#             if not os.path.exists(final_path_1):
+#                 os.makedirs(final_path_1)
+#
+#             # 移动至父文件夹
+#             final_path_1 = os.path.join(file_dir, final_name_1)
+#             shutil.move(final_path_2, final_path_1)
 
         self.initList()
         addTimes("rename_times")
