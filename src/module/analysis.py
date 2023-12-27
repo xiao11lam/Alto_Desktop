@@ -7,6 +7,7 @@ from nltk.corpus import words
 
 from src.module.api import *
 from src.module.config import posterFolder, readConfig
+import fitz  # PyMuPDF
 
 
 def getRomajiName(file_name):
@@ -38,6 +39,23 @@ def getRomajiName(file_name):
 
 
 ##################################################Real Output##############################################
+def extract_text_from_pdfs(anime):
+    folder_path = anime
+    if not folder_path or not os.path.exists(folder_path):
+        print("Invalid or non-existent folder path.")
+        return
+
+    all_files = os.listdir(folder_path)
+    pdf_files = [file for file in all_files if file.endswith('.pdf')]
+
+    for pdf_file in pdf_files:
+        pdf_path = os.path.join(folder_path, pdf_file)
+        with fitz.open(pdf_path) as doc:
+            print(f"Text from {pdf_file}:")
+            for page in doc:
+                print(page.get_text())
+
+
 def getApiInfo(anime):
 #     romaji_name = anime["romaji_name"]
 
@@ -52,7 +70,6 @@ def getApiInfo(anime):
 #             return
 
     anime["jp_name_anilist"] = 'ナガハマラジャ'
-    print(anime["file_path"])
 
 
 
@@ -96,6 +113,9 @@ def getApiInfo(anime):
 #     prev_id = bangumi_previous[0]
     prev_id = '114808'
 #     prev_name = bangumi_previous[1]
+
+    extract_text_from_pdfs(anime["file_path"])
+
     prev_name = 'Output Folder Location'
 
 #     while bgm_id != prev_id:  # 如果 ID 不同，说明有前传

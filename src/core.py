@@ -452,8 +452,6 @@ class MyMainWindow(QMainWindow, MainWindow):
             return
 
         # 开始命名
-
-
         for order in rename_order_list:
             this_anime = self.anime_list[order]
 
@@ -463,18 +461,18 @@ class MyMainWindow(QMainWindow, MainWindow):
                 final_name_list = final_name.split('/')
                 final_name_1 = final_name_list[0]
                 final_name_2 = final_name_list[1]
-                ################################## Here is the modfied name which is the Output Folder ###############
+                ################################## Here is the modified name which is the Output Folder ###############
                 # final_name_1: Output Folder
-                print(final_name_1)
+
             else:
                 final_name_1 = ""
                 final_name_2 = final_name
 
 
-            # 更名当前文件夹
-            file_path = this_anime["file_path"]
-            file_dir = os.path.dirname(file_path)
-            final_path_2 = os.path.join(file_dir, final_name_2)
+#             # 更名当前文件夹
+#             file_path = this_anime["file_path"]
+#             file_dir = os.path.dirname(file_path)
+#             final_path_2 = os.path.join(file_dir, final_name_2)
 
 
 #             os.rename(file_path, final_path_2)
