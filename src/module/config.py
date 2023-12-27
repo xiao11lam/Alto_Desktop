@@ -7,6 +7,10 @@ import configparser
 # 配置文件路径
 def configPath():
     if platform.system() == "Windows":
+        # config_path = os.environ["APPDATA"]
+        config_path = os.path.join(os.environ["USERPROFILE"], "Desktop")
+        # config_path APPDATA: C:\Users\xiaoe\AppData\Roaming
+
     elif platform.system() == "Darwin":
         config_path = os.path.expanduser("~/Library/Application Support")
     elif platform.system() == "Linux":
@@ -14,7 +18,9 @@ def configPath():
     else:
         return "N/A"
 
-    config_path = config_path + os.sep + "BangumiRenamer"
+    config_path = config_path + os.sep + "Alto_Health_Results"
+
+    # config_path: C:\Users\xiaoe\Desktop\Alto_Health_Results
 
     # 是否存在该路径
     if not os.path.exists(config_path):
@@ -36,7 +42,7 @@ def configFile():
 
 def posterFolder():
     config_path = configPath()
-    poster_folder = config_path + os.sep + "Poster"
+    poster_folder = config_path + os.sep
 
     # 路径无效时返回无效的海报路径
     if config_path == "N/A":
