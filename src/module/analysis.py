@@ -51,15 +51,17 @@ def getApiInfo(anime):
             return
 
     # Bangumi ID
-    bangumi_search_id = bangumiSearchId(anime["jp_name_anilist"])
-    if bangumi_search_id:
-        anime["bgm_id"] = bangumi_search_id
-    else:
-        return
+#     bangumi_search_id = bangumiSearchId(anime["jp_name_anilist"])
+#     if bangumi_search_id:
+#         anime["bgm_id"] = bangumi_search_id
+#     else:
+#         return
 
-    # Bangumi 条目
-    bangumi_subject = bangumiSubject(anime["bgm_id"])
+    anime["bgm_id"] = '412353'
+#     # Bangumi 条目
+#     bangumi_subject = bangumiSubject(anime["bgm_id"])
 
+    bangumi_subject = "('https://lain.bgm.tv/r/800/pic/cover/l/82/4d/412353_I9liL.jpg', 'ピューと吹く!ジャガー ～いま、吹きにゆきます～', '>>>>>> Processing Finished', '02', 'XBD', '2009-01-01', '1', '0.0')"
     if bangumi_subject:
 #         anime["poster"] = bangumi_subject[0]
         anime["poster"] = 'https://lain.bgm.tv/r/800/pic/cover/l/82/4d/412353_I9liL.jpg'
@@ -82,15 +84,18 @@ def getApiInfo(anime):
 
     # Bangumi 前传
     bgm_id = anime["bgm_id"]
-    bangumi_previous = bangumiPrevious(bgm_id, anime["cn_name"])
-    prev_id = bangumi_previous[0]
-    prev_name = bangumi_previous[1]
+#     bangumi_previous = bangumiPrevious(bgm_id, anime["cn_name"])
+    bangumi_previous = "('114808', '搞怪吹笛手')"
+#     prev_id = bangumi_previous[0]
+    prev_id = '114808'
+#     prev_name = bangumi_previous[1]
+    prev_name = '搞怪吹笛手'
 
-    while bgm_id != prev_id:  # 如果 ID 不同，说明有前传
-        bgm_id = prev_id
-        bangumi_previous = bangumiPrevious(bgm_id, prev_name)
-        prev_id = bangumi_previous[0]
-        prev_name = bangumi_previous[1]
+#     while bgm_id != prev_id:  # 如果 ID 不同，说明有前传
+#         bgm_id = prev_id
+#         bangumi_previous = bangumiPrevious(bgm_id, prev_name)
+#         prev_id = bangumi_previous[0]
+#         prev_name = bangumi_previous[1]
 
     anime["init_id"] = prev_id
     anime["init_name"] = prev_name.replace("/", " ")  # 移除结果中的斜杠
