@@ -34,7 +34,7 @@ class AboutWindow(object):
         self.logoLayout.addWidget(self.logo)
         self.logoLayout.addStretch(0)
 
-        self.titleLabel = QLabel("BangumiRenamer")
+        self.titleLabel = QLabel("AltoHealth")
         self.titleLabel.setObjectName("logoLabel")
         self.titleLabel.setFont(QFont(font_family))
         self.titleLabel.setAlignment(Qt.AlignCenter)

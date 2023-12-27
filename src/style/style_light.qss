@@ -67,7 +67,7 @@ MySettingWindow {
     color: #484848;
 }
 
-/* 设置 */
+/* Setting */
 
 #cardTitleLabel {
     font-size: 14px;

@@ -14,7 +14,7 @@ class SettingWindow(object):
             style_sheet = file.read()
         this_window.setStyleSheet(style_sheet)
 
-        this_window.setWindowTitle("设置")
+        this_window.setWindowTitle("Setting")
         this_window.setWindowIcon(QIcon(getResource("src/image/icon_win.png")))
         this_window.resize(850, -1)
         this_window.setFixedSize(self.size())  # 禁止拉伸窗口
@@ -117,12 +117,12 @@ class SettingWindow(object):
 
         # 图片缓存
 
-        self.posterFolderTitle = QLabel("动画海报")
+        self.posterFolderTitle = QLabel("Export Path")
 #         self.posterFolderInfo = QLabel(posterFolder())
 #       Here is the posterFolder() is the path
         self.posterFolderInfo = QLabel(posterFolder())
 
-        self.posterFolderButton = PushButton("打开", self, FluentIcon.FOLDER)
+        self.posterFolderButton = PushButton("Open", self, FluentIcon.FOLDER)
         self.posterFolderButton.setFixedWidth(100)
 
         self.posterFolderCard = self.settingCard(

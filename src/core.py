@@ -108,14 +108,14 @@ class MyMainWindow(QMainWindow, MainWindow):
 
     def logAction(self, checked):
         if checked:
-            self.showLogs.setText("隐藏日志")
+            self.showLogs.setText("Hide Logs")
             self.logFrame.setHidden(False)
             if not self.isMaximized():
                 width = self.width()
                 height = self.height()
                 self.resize(width, height + 200)
         else:
-            self.showLogs.setText("显示日志")
+            self.showLogs.setText("Show Logs")
             self.logFrame.setHidden(True)
             if not self.isMaximized():
                 width = self.width()

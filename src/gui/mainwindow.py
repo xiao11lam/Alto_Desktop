@@ -22,7 +22,7 @@ class MainWindow(object):
             style_sheet = file.read()
         this_window.setStyleSheet(style_sheet)
 
-        this_window.setWindowTitle(f"BangumiRenamer {currentVersion()}")
+        this_window.setWindowTitle(f"AltoHealth {currentVersion()}")
 
         # This is for the Program Icon
         this_window.setWindowIcon(QIcon(getResource("src/image/icon_win.png")))
@@ -31,7 +31,7 @@ class MainWindow(object):
 
         # 标题区域
 
-        self.titleLabel = QLabel("BangumiRenamer")
+        self.titleLabel = QLabel("AltoHealth")
         self.titleLabel.setObjectName("titleLabel")
         self.titleLabel.setFont(QFont(font_family))
 
@@ -50,7 +50,7 @@ class MainWindow(object):
         self.spinner.setVisible(False)
 
         self.aboutButton = ToolButton(FluentIcon.INFO, self)
-        self.settingButton = PushButton("设置", self, FluentIcon.SETTING)
+        self.settingButton = PushButton("Setting", self, FluentIcon.SETTING)
 
         self.headerLayout = QHBoxLayout()
         self.headerLayout.setContentsMargins(0, 0, 0, 0)
@@ -198,7 +198,7 @@ class MainWindow(object):
 
         # 操作区域
 
-        self.showLogs = PillPushButton("显示日志", self)
+        self.showLogs = PillPushButton("Show Logs", self)
         self.showLogs.setFixedWidth(100)
 
         self.clearButton = PushButton("Empty", self)
