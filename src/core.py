@@ -126,7 +126,7 @@ class MyMainWindow(QMainWindow, MainWindow):
         for anime in self.anime_list:
             getFinalName(anime)
         self.selectTable()
-        self.showInfo("success", title, "配置修改成功")
+        self.showInfo("success", title, "Sucessful")
 
     def RowInTable(self):
         for selected in self.table.selectedRanges():
@@ -135,10 +135,10 @@ class MyMainWindow(QMainWindow, MainWindow):
 
     def cleanTable(self):
         if not self.anime_list:
-            self.showInfo("warning", "", "列表为空")
+            self.showInfo("warning", "", "The List is Empty!")
         else:
             self.initList()
-            self.showInfo("success", "", "列表已清空")
+            self.showInfo("success", "", "The List is Empty")
 
     # here it drags all the files into the table
     def dragEnterEvent(self, event):
@@ -590,6 +590,7 @@ class MySettingWindow(QDialog, SettingWindow):
     def loadConfig(self):
         self.renameType.setText(self.config.get("Format", "rename_format"))
         self.dateType.setText(self.config.get("Format", "date_format"))
+        self.ageType.setText(self.config.get("Format", "age_format"))
 
     def saveConfig(self):
         # 格式检查
@@ -607,11 +608,13 @@ class MySettingWindow(QDialog, SettingWindow):
 
         self.config.set("Format", "rename_format", self.renameType.currentText())
         self.config.set("Format", "date_format", self.dateType.currentText())
+        self.config.set("Format", "age_format", self.ageType.currentText())
 
         with open(configFile(), "w", encoding="utf-8") as content:
             self.config.write(content)
 
-        self.save_notice.emit("配置已保存")
+        print(configFile())
+        self.save_notice.emit("Setting Saved")
         self.close()
 
     def openPosterFolder(self):

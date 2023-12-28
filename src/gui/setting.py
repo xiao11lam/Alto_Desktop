@@ -21,16 +21,16 @@ class SettingWindow(object):
 
         # 命名格式
 
-        self.renameTypeTitle = QLabel("命名格式")
-        self.renameTypeInfo = QLabel("变量必须包含花括号；单斜杠用于文件夹嵌套")
+        self.renameTypeTitle = QLabel("Prioritization Outcome Categories")
+        self.renameTypeInfo = QLabel("D1: Emergency")
 
         self.renameType = EditableComboBox(self)
         self.renameType.setMinimumWidth(480)
         self.renameType.setMaximumWidth(400)
-        self.renameType.addItems(["{init_name}/[{score}] [{typecode}] [{release}] {jp_name}",
-                                  "{init_name}/[{typecode}][{release}] {jp_name}",
-                                  "{types}/{cn_name} ({jp_name})",
-                                  "[{release}] {cn_name} ({episodes})"])
+        self.renameType.addItems(["D1",
+                                  "D2",
+                                  "D3",
+                                  "D4"])
 
         self.renameTypeCard = self.settingCard(self.renameTypeTitle, self.renameTypeInfo, self.renameType, "half")
 
@@ -89,21 +89,21 @@ class SettingWindow(object):
 
         # 日期格式
 
-        self.dateTypeTitle = QLabel("日期格式")
+        self.dateTypeTitle = QLabel("Date Filter")
 
-        self.dateTypeInfo = QLabel("指定 release_date 的显示格式，")
-        self.dateTypeInfo.setObjectName("cardInfoLabel")
+#         self.dateTypeInfo = QLabel("Specify the Date，")
+#         self.dateTypeInfo.setObjectName("cardInfoLabel")
 
-        self.dateTypeUrl = QLabel("<a href='https://arrow.readthedocs.io/en/latest/guide.html#supported-tokens' "
-                                  "style='font-size:12px;color:#F09199;'>查看在线文档</a>")
-        self.dateTypeUrl.setOpenExternalLinks(True)
+#         self.dateTypeUrl = QLabel("<a href='https://arrow.readthedocs.io/en/latest/guide.html#supported-tokens' "
+#                                   "style='font-size:12px;color:#F09199;'>You can check the manual here</a>")
+#         self.dateTypeUrl.setOpenExternalLinks(True)
 
         self.dataInfoLayout = QHBoxLayout()
         self.dataInfoLayout.setSpacing(0)
         self.dataInfoLayout.setContentsMargins(0, 0, 0, 0)
         self.dataInfoLayout.setAlignment(Qt.AlignLeft)
-        self.dataInfoLayout.addWidget(self.dateTypeInfo)
-        self.dataInfoLayout.addWidget(self.dateTypeUrl)
+#         self.dataInfoLayout.addWidget(self.dateTypeInfo)
+#         self.dataInfoLayout.addWidget(self.dateTypeUrl)
 
         self.dateInfoFrame = QFrame()
         self.dateInfoFrame.setLayout(self.dataInfoLayout)
@@ -111,9 +111,38 @@ class SettingWindow(object):
         self.dateType = EditableComboBox(self)
         self.dateType.setMinimumWidth(200)
         self.dateType.setMaximumWidth(200)
-        self.dateType.addItems(["YYMMDD", "YYYY-MM", "MMM YYYY"])
+        self.dateType.addItems(["12 2023", "11 20232", "10 2023"])
+
+
+#         self.dateType = EditableComboBox(self)
+#         self.dateType.setMinimumWidth(200)
+#         self.dateType.setMaximumWidth(200)
+#         self.dateType.addItems(["11", "YYYY-1", "11 YYYY"])
 
         self.dateTypeCard = self.settingCard(self.dateTypeTitle, self.dateInfoFrame, self.dateType, "full")
+
+
+        self.ageTypeTitle = QLabel("Age Filter")
+
+        self.ageTypeInfo = QLabel("Specify the Age，")
+        self.ageTypeInfo.setObjectName("cardAgeLabel")
+
+
+        self.ageInfoLayout = QHBoxLayout()
+        self.ageInfoLayout.setSpacing(0)
+        self.ageInfoLayout.setContentsMargins(0, 0, 0, 0)
+        self.ageInfoLayout.setAlignment(Qt.AlignLeft)
+#         self.ageInfoLayout.addWidget(self.dateTypeInfo)
+
+        self.ageInfoFrame = QFrame()
+        self.ageInfoFrame.setLayout(self.dataInfoLayout)
+
+        self.ageType = EditableComboBox(self)
+        self.ageType.setMinimumWidth(200)
+        self.ageType.setMaximumWidth(200)
+        self.ageType.addItems(["> 35", "<= 35"])
+        self.ageTypeCard = self.settingCard(self.ageTypeTitle, self.ageInfoFrame, self.ageType, "full")
+
 
         # 图片缓存
 
@@ -130,9 +159,9 @@ class SettingWindow(object):
 
         # 按钮
 
-        self.applyButton = PrimaryPushButton("保存", self)
+        self.applyButton = PrimaryPushButton("Save", self)
         self.applyButton.setFixedWidth(120)
-        self.cancelButton = PushButton("取消", self)
+        self.cancelButton = PushButton("Cancel", self)
         self.cancelButton.setFixedWidth(120)
 
         self.buttonLayout = QHBoxLayout()
@@ -151,6 +180,7 @@ class SettingWindow(object):
         layout.addSpacing(-15)
         layout.addWidget(self.renameTutorialCard)
         layout.addWidget(self.dateTypeCard)
+        layout.addWidget(self.ageTypeCard)
         layout.addWidget(self.posterFolderCard)
         layout.addSpacing(12)
         layout.addLayout(self.buttonLayout)

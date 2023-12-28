@@ -218,6 +218,9 @@ def getFinalName(anime):
     data_format = config.get("Format", "date_format")
     rename_format = config.get("Format", "rename_format")
 
+    ########### Age ##################
+    age_format = config.get("Format", "age")
+
     jp_name = anime["jp_name"]
     cn_name = anime["cn_name"]
     init_name = anime["init_name"]

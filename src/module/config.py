@@ -63,8 +63,9 @@ def initConfig(config_file):
     config.set("Application", "version", "1.0")
 
     config.add_section("Format")
-    config.set("Format", "rename_format", "{init_name}/[{score}] [{typecode}] [{release}] {jp_name}")
-    config.set("Format", "date_format", "YYMMDD")
+    config.set("Format", "rename_format", "D1")
+    config.set("Format", "date_format", "12 2023")
+    config.set("Format", "age_format", "> 35")
 
     config.add_section("Counter")
     config.set("Counter", "open_times", "0")
